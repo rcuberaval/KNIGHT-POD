@@ -1,0 +1,8 @@
+{
+"name": "KnightPod",
+"short_name": "KnightPod",
+"start_url": "knightpod.html",
+"display": "standalone",
+"background_color": "#ffffff",
+"theme_color": "#ffffff"
+}

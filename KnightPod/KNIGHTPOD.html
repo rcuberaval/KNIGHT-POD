@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>KnightPod 🎵</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.json">
+
+<style>
+body{
+background:white;
+font-family:Arial;
+text-align:center;
+}
+
+button{
+padding:10px;
+margin:5px;
+font-size:16px;
+}
+
+#playlist{
+width:300px;
+height:200px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>KnightPod 🎵</h1>
+
+<input type="file" id="files" multiple accept="audio/mp3">
+
+<br><br>
+
+<select id="playlist" size="10"></select>
+
+<br><br>
+
+<button onclick="playMusic()">Play</button>
+<button onclick="pauseMusic()">Pause</button>
+<button onclick="resumeMusic()">Resume</button>
+<button onclick="stopMusic()">Stop</button>
+
+<audio id="player"></audio>
+
+<script>
+
+let songs=[]
+let player=document.getElementById("player")
+
+document.getElementById("files").addEventListener("change",function(e){
+
+songs=e.target.files
+let list=document.getElementById("playlist")
+list.innerHTML=""
+
+for(let i=0;i<songs.length;i++){
+
+let option=document.createElement("option")
+option.text=songs[i].name
+option.value=i
+
+list.appendChild(option)
+
+}
+
+})
+
+function playMusic(){
+
+let list=document.getElementById("playlist")
+let index=list.value
+
+if(index==="") return
+
+player.src=URL.createObjectURL(songs[index])
+player.play()
+
+}
+
+function pauseMusic(){ player.pause() }
+function resumeMusic(){ player.play() }
+
+function stopMusic(){
+player.pause()
+player.currentTime=0
+}
+
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register('sw.js')
+}
+
+</script>
+
+</body>
+</html>
